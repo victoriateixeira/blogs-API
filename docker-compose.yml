@@ -43,8 +43,6 @@ services:
       API_HOST: 'node'
       API_PORT: 3000
       NODE_ENV: 'development'
-    env_file:
-       - .env 
     networks:
       - blogs_api_net
 
