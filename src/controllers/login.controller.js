@@ -4,11 +4,11 @@ const { createToken } = require('../auth/authFunctions');
 
 const isBodyValid = (email, password) => email && password;
 
-module.exports = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!isBodyValid(email, password)) {
-      return res.status(401).json({ message: 'Some required fields are missing' });
+      return res.status(400).json({ message: 'Some required fields are missing' });
     }
 
     const user = await userService.getByEmail(email);
@@ -26,4 +26,8 @@ module.exports = async (req, res) => {
       .status(500)
       .json({ message: 'Erro interno', error: err.message });
   }
+};
+
+module.exports = {
+  loginUser,
 };

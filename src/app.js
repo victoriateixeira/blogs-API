@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginRouter } = require('./routers/index');
+const { loginRouter } = require('./routers');
 
 // ...
 
