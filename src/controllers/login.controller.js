@@ -1,5 +1,6 @@
 const { userService } = require('../services');
 require('dotenv/config');
+const { createToken } = require('../auth/authFunctions');
 
 const isBodyValid = (email, password) => email && password;
 
