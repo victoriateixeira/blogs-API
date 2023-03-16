@@ -16,7 +16,7 @@ const loginUser = async (req, res) => {
     if (!user || password !== user.password) {
       return res.status(400).json({ message: 'Invalid fields' });
     }
-
+console.log(user, 'LOGINCONTROLLER_USER');
     const { password: _, ...userWithoutPassword } = user.dataValues;
 
     const token = createToken(userWithoutPassword);

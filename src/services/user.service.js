@@ -5,9 +5,14 @@ const getByEmail = (email) => User.findOne({ where: { email } });
 
 const createUser = async (userData) => {
   const { displayName, email, password, image } = userData;
-const isUserDataValid = validateUserData(userData);
+  const existingEmail = await getByEmail(email); 
+if (existingEmail) { return { type: 409, message: 'User already registered' }; }
+
+const isUserDataValid = await validateUserData(userData);
 if (isUserDataValid.type) { return isUserDataValid; }
-User.create({ displayName, email, password, image });
+
+const newUser = await User.create({ displayName, email, password, image });
+return { type: null, message: newUser };
 };
 
 module.exports = {
