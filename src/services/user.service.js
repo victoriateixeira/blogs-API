@@ -17,7 +17,8 @@ const newUser = await User.create({ displayName, email, password, image });
 return { type: null, message: newUser };
 };
 
-const getAllUsers = async () => User.findAll();
+const getAllUsers = async () => User.findAll({
+  attributes: { exclude: ['password'] } });
 
 module.exports = {
   getByEmail,

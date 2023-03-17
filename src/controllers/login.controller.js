@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
 console.log(user, 'LOGINCONTROLLER_USER');
     const { password: _, ...userWithoutPassword } = user.dataValues;
 
-    const token = createToken(userWithoutPassword.toString());
+    const token = createToken(userWithoutPassword);
     res.status(200).send({ token });
   } catch (err) {
      return res

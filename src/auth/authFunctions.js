@@ -9,6 +9,15 @@ const JWT_CONFIG = {
 
 const createToken = (data) => jwt.sign({ data }, secret, JWT_CONFIG);
 
-const verifyToken = (token) => jwt.verify(token, secret);
+// const verifyToken = (token) => jwt.verify(token, secret);
+
+const verifyToken = (authorization) => {
+  try {
+    const payload = jwt.verify(authorization, secret);
+    return payload;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 module.exports = { createToken, verifyToken };
