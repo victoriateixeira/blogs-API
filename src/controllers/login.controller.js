@@ -19,8 +19,8 @@ const loginUser = async (req, res) => {
 console.log(user, 'LOGINCONTROLLER_USER');
     const { password: _, ...userWithoutPassword } = user.dataValues;
 
-    const token = createToken(userWithoutPassword);
-    res.status(200).json({ token });
+    const token = createToken(userWithoutPassword.toString());
+    res.status(200).send({ token });
   } catch (err) {
      return res
       .status(500)

@@ -3,6 +3,8 @@ const { validateUserData } = require('./validations/validateUserData');
 
 const getByEmail = (email) => User.findOne({ where: { email } });
 
+const getById = (id) => User.findByPk(id);
+
 const createUser = async (userData) => {
   const { displayName, email, password, image } = userData;
   const existingEmail = await getByEmail(email); 
@@ -21,4 +23,5 @@ module.exports = {
   getByEmail,
   createUser,
   getAllUsers,
+  getById,
 };

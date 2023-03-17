@@ -12,11 +12,11 @@ const user = await getByEmail(userData.email);
 console.log(user, 'USERCONTROLLER_USER');
 const { password: _, ...userWithoutPassword } = user.dataValues;
 const token = createToken(userWithoutPassword);
-    res.status(201).json({ token });
+    res.status(201).send({ token });
 };
 
 const getAllUsers = async (_req, res) => {
-const allUsers = userService.getAllUsers();
+const allUsers = await userService.getAllUsers();
 return res.status(200).json(allUsers);
 };
 
