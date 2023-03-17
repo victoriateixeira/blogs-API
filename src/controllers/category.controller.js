@@ -8,7 +8,8 @@ const createCategory = async (req, res) => {
   }); 
 }
 const category = await categoryService.createCategory(name);
-return res.status(200).json(category);
+
+return res.status(200).json(category.message);
 };
 
 module.exports = {

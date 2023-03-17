@@ -10,12 +10,12 @@ const validateToken = async (req, res, next) => {
     if (!authorization) {
       return res.status(401).json({ message: 'Token not found' });
     }
-    const { data: { userId } } = verifyToken(authorization);
-    console.log(userId, 'VERIFYTOKEN_PAYLOAD');
-    const user = await userService.getById(userId);
-    if (!user) {
-      return res.status(401).json({ message: 'Expired or invalid token' });
-}
+//     const { data: { userId } } = verifyToken(authorization);
+//     console.log(userId, 'VERIFYTOKEN_PAYLOAD');
+//     const user = await userService.getById(userId);
+//     if (!user) {
+//       return res.status(401).json({ message: 'Expired or invalid token' });
+// }
     return next();
   } catch (error) {
     res.status(401).json({
