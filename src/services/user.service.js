@@ -3,7 +3,8 @@ const { validateUserData } = require('./validations/validateUserData');
 
 const getByEmail = (email) => User.findOne({ where: { email } });
 
-const getById = (id) => User.findByPk(id);
+const getById = (id) => User.findByPk(id, {
+  attributes: { exclude: ['password'] } });
 
 const createUser = async (userData) => {
   const { displayName, email, password, image } = userData;
