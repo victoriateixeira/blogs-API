@@ -31,6 +31,13 @@ const getPostById = async (id) => {
   return blogPostById;
 };
 
+const updatePost = async (title, content, id, userId) => {
+const postData = await getPostById(id);
+const ownerId = postData.userId;
+const { ownerhipError } = verifiesPostOwnership(ownerId, userId);
+if (ownerhipError.type) { return ownerhipError; }
+};
+
 module.exports = {
   createBlogPost,
   createPostCategory,

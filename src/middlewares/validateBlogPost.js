@@ -1,11 +1,22 @@
 const { Category } = require('../models');
 
+// const validateFieldsExist = (req, res, next) => {
+//     const { title, content, categoryIds } = req.body;
+//     if (!title || !content || !categoryIds) {
+//       return res.status(400)
+//       .json({ message: 'Some required fields are missing' }); 
+//      }
+
+// return next();
+// };
 const validateFieldsExist = (req, res, next) => {
-    const { title, content, categoryIds } = req.body;
-    if (!title || !content || !categoryIds) {
-      return res.status(400)
+  const fields = Object.values(req.body);
+for (let i = 0; i < fields.length; i += 1) {
+  if (!fields[i]) {
+ return res.status(400)
       .json({ message: 'Some required fields are missing' }); 
-     }
+} 
+}
 
 return next();
 };
