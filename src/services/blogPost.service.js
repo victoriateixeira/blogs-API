@@ -35,6 +35,7 @@ const getPostById = async (id) => {
 
 const updatePost = async (title, content, id, userId) => {
 const postData = await getPostById(id);
+if (postData.type === 404) { return postData; }
 const ownerId = postData.message.userId;
 const ownershipError = verifiesPostOwnership(ownerId, userId);
 if (ownershipError.type) { return ownershipError; }
@@ -49,15 +50,17 @@ return { type: 200, message: updatedPost.message };
 
 const deletePost = async (id, userId) => {
 const postData = await getPostById(id);
+console.log(postData.message.userId, 'DELETEPOST_POSTDATA');
 if (postData.type === 404) { return postData; }
-const ownerId = postData.userId;
+const ownerId = postData.message.userId;
+console.log(ownerId, 'DELETEPOST_OWNERID');
 const ownershipError = verifiesPostOwnership(ownerId, userId);
 if (ownershipError.type) { return ownershipError; }
   await BlogPost.destroy({
     where: { id },
   });
 
-  return { type: 200, message: '' };
+  return { type: 204, message: '' };
 };
 module.exports = {
   createBlogPost,
