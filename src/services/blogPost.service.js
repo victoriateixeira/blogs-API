@@ -1,5 +1,6 @@
 const { BlogPost, User, Category } = require('../models');
 const { PostCategory } = require('../models');
+const { verifiesPostOwnership } = require('./validations/varifiesPostOwnership');
 
   const createBlogPost = async ({ title, content, userId }) => {
     const newBlogPost = await BlogPost.create({ userId, 
@@ -36,6 +37,12 @@ const postData = await getPostById(id);
 const ownerId = postData.userId;
 const { ownerhipError } = verifiesPostOwnership(ownerId, userId);
 if (ownerhipError.type) { return ownerhipError; }
+const updatedPost = await BlogPost.update({
+  title,
+  content,
+}, 
+{ where: { id } });
+return updatedPost;
 };
 
 module.exports = {
@@ -43,4 +50,5 @@ module.exports = {
   createPostCategory,
   getAllPosts,
   getPostById,
+  updatePost,
 };
