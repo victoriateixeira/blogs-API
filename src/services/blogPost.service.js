@@ -22,8 +22,18 @@ const { PostCategory } = require('../models');
     return blogPostList;
   };
 
+const getPostById = async (id) => {
+  const blogPostById = await BlogPost.findOne({
+    where: { id },
+    include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+      { model: Category, as: 'categories' }],
+  });
+  return blogPostById;
+};
+
 module.exports = {
   createBlogPost,
   createPostCategory,
   getAllPosts,
+  getPostById,
 };
