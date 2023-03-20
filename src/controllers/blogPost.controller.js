@@ -2,11 +2,12 @@ const { blogPostService } = require('../services');
 
 const createBlogPost = async (req, res) => {
   const { title, content, categoryIds } = req.body;
-  const { userId } = req.userId;
+  const userId = req.user.id;
   const newBlogPost = await blogPostService.createBlogPost({ title, content, userId });
+  console.log(newBlogPost, 'BLOGPOSTCONTROLLER_NEWBLOGPOST');
   await Promise.all(categoryIds
-    .map((category) => blogPostService.createPostCategory({ postId: newBlogPost.id, category })));
-  if (newBlogPost.type) { return res.status(newBlogPost.type).json(newBlogPost.message); }
+    .map((categoryId) => blogPostService.createPostCategory({ postId: newBlogPost.id,
+       categoryId })));
   return res.status(201).json(newBlogPost);
 };
 
