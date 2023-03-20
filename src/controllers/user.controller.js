@@ -31,8 +31,15 @@ if (!user) {
 return res.status(200).json(user);
 };
 
+const deleteUserMe = async (req, res) => {
+  const { id } = req.user;
+  await userService.deleteUserMe(id);
+  res.status(204).json('');
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getById,
+  deleteUserMe,
 };
