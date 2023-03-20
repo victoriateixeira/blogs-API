@@ -16,7 +16,8 @@ const { PostCategory } = require('../models');
 
   const getAllPosts = async () => {
     const blogPostList = await BlogPost.findAll({
-      include: [{ model: User, as: 'users' }, { model: Category, as: 'categories' }],
+      include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+      { model: Category, as: 'categories' }],
     });
     return blogPostList;
   };

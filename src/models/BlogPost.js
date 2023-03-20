@@ -18,7 +18,7 @@ updated: DataTypes.DATE,
     // define o tipo de relacionamento
         BlogPost.belongsTo(models.User,
         // define qual a foreign key a ser criada
-          { foreignKey: 'userId', as: 'users' });
+          { foreignKey: 'userId', as: 'user' });
       };
  
   return BlogPost;
