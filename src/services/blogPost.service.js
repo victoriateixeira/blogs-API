@@ -28,8 +28,7 @@ const getPostById = async (id) => {
     include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
       { model: Category, as: 'categories' }],
   });
-  if (!blogPostById) { return { type: 404, message: 'Post does not exist' }; }
-  return { type: null, message: blogPostById };
+  return blogPostById;
 };
 
 module.exports = {
