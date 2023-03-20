@@ -29,12 +29,13 @@ const getPostById = async (id) => {
     include: [{ model: User, as: 'user', attributes: { exclude: ['password'] } }, 
       { model: Category, as: 'categories' }],
   });
-  return blogPostById;
+  if (!blogPostById) { return { type: 404, message: { message: 'Post does not exist' } }; }
+  return { type: 200, message: blogPostById };
 };
 
 const updatePost = async (title, content, id, userId) => {
 const postData = await getPostById(id);
-const ownerId = postData.userId;
+const ownerId = postData.message.userId;
 const ownershipError = verifiesPostOwnership(ownerId, userId);
 if (ownershipError.type) { return ownershipError; }
 await BlogPost.update({
@@ -43,13 +44,26 @@ await BlogPost.update({
 }, 
 { where: { id } });
 const updatedPost = await getPostById(id);
-return { type: 200, message: updatedPost };
+return { type: 200, message: updatedPost.message };
 };
 
+const deletePost = async (id, userId) => {
+const postData = await getPostById(id);
+if (postData.type === 404) { return postData; }
+const ownerId = postData.userId;
+const ownershipError = verifiesPostOwnership(ownerId, userId);
+if (ownershipError.type) { return ownershipError; }
+  await BlogPost.destroy({
+    where: { id },
+  });
+
+  return { type: 200, message: '' };
+};
 module.exports = {
   createBlogPost,
   createPostCategory,
   getAllPosts,
   getPostById,
   updatePost,
+  deletePost,
 };
