@@ -35,14 +35,15 @@ const getPostById = async (id) => {
 const updatePost = async (title, content, id, userId) => {
 const postData = await getPostById(id);
 const ownerId = postData.userId;
-const { ownerhipError } = verifiesPostOwnership(ownerId, userId);
-if (ownerhipError.type) { return ownerhipError; }
-const updatedPost = await BlogPost.update({
+const ownershipError = verifiesPostOwnership(ownerId, userId);
+if (ownershipError.type) { return ownershipError; }
+await BlogPost.update({
   title,
   content,
 }, 
 { where: { id } });
-return updatedPost;
+const updatedPost = await getPostById(id);
+return { type: 200, message: updatedPost };
 };
 
 module.exports = {

@@ -28,7 +28,8 @@ const updatePost = async (req, res) => {
   const { title, content } = req.body;
   const userId = req.user.id;
   const updatedPost = await blogPostService.updatePost(title, content, id, userId);
-  return res.status(200).json(updatedPost);
+
+  return res.status(updatedPost.type).json(updatedPost.message);
 };
 module.exports = {
   createBlogPost,
