@@ -10,5 +10,5 @@ validateFieldsExist,
 validateCategoriesExist,
  blogPostController.createBlogPost);
  router.get('/', validateToken, blogPostController.getAllPosts);
- 
+ router.get('/:id', validateToken, blogPostController.getPostById);
 module.exports = router;
