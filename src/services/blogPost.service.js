@@ -17,7 +17,7 @@ const { PostCategory } = require('../models');
     console.log(newBlogPost);
     return newBlogPost;
   };
-
+  
   const createPostCategory = async ({ postId, categoryId }) => {
     PostCategory.create({ postId, categoryId });
   };
